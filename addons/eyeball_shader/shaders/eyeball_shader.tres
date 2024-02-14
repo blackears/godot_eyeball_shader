@@ -1,0 +1,66 @@
+[gd_resource type="Shader" format=3 uid="uid://cmc1pgk78g758"]
+
+[resource]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
+
+
+uniform float roughness : hint_range(0, 1);
+uniform sampler2D texture_roughness : hint_roughness_r,filter_linear_mipmap,repeat_enable;
+//uniform float specular;
+uniform vec3 uv1_scale = vec3(1, 1, 1);
+uniform vec3 uv1_offset;
+
+uniform vec3 eye_white:source_color = vec3(1, 1, 1);
+uniform vec3 pupil_color:source_color = vec3(0, 0, 0);
+uniform sampler2D texture_iris_color : source_color, filter_linear_mipmap, repeat_disable;
+
+uniform float iris_radius:hint_range(0.0, 1.0, 0.01) = .5;
+uniform float iris_margin:hint_range(0.0, 1.0, 0.01) = .1;
+uniform float iris_pinch:hint_range(0.0, 1.0, 0.01) = .1;
+uniform float eye_cell_scale:hint_range(1.0, 20.0, 0.1) = 10;
+uniform float eye_cell_jitter:hint_range(0.0, 1.0, 0.1) = .6;
+uniform uint rand_seed;
+
+#include \"res://addons/eyeball_shader/shaders/voronoi.gdshaderinc\"
+
+void vertex() {
+	UV = UV * uv1_scale.xy  +uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	//ALBEDO = albedo.rgb * albedo_tex.rgb;
+	
+	vec2 uv_norm = UV * 2.0 - vec2(1, 1);
+	
+	float radial_offset = length(uv_norm);
+	
+	vec2 iris_uv = normalize(uv_norm) *  pow(radial_offset, 1.0 - iris_pinch);
+	float eye_cell_lum = voronoi_cell_2d(iris_uv * eye_cell_scale, eye_cell_jitter, rand_seed);
+	vec3 iris_col = texture(texture_iris_color, vec2(eye_cell_lum, 0)).xyz;
+	//smoothstep()
+	vec3 col = mix(pupil_color, eye_white, (radial_offset - iris_radius) / iris_margin);
+//	vec3 col = smoothstep(pupil_color, eye_white, (radial_offset - iris_radius) / iris_margin);
+	//smoothstep()
+	//vec3 col = mix(pupil_color, eye_white, length(uv_norm));
+	ALBEDO = col;
+	ALBEDO = iris_col;
+//	ALBEDO = eye_cell_lum * vec3(1, 1, 1);
+//	ALBEDO = vec3(length(uv_norm), 0, 0);
+//	ALBEDO = vec3(base_uv, 0);
+	
+	
+//	ALBEDO = vec3(1.0, 0, 0);
+	
+	vec4 roughness_texture_channel = vec4(1.0,0.0,0.0,0.0);
+	float roughness_tex = dot(texture(texture_roughness,base_uv),roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	//SPECULAR = specular;
+}
+"

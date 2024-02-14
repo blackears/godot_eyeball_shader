@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://begemavbr62qf"]
+
+[ext_resource type="Script" path="res://gen_code.gd" id="1_t4k6u"]
+
+[node name="GenCode" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_t4k6u")
+
+[node name="bn_gen_code" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Generate Code"
+
+[connection signal="pressed" from="bn_gen_code" to="." method="_on_bn_gen_code_pressed"]

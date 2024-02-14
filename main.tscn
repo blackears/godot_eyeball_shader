@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://dg00uvl2q6mxf"]
+
+[ext_resource type="Shader" uid="uid://cmc1pgk78g758" path="res://addons/eyeball_shader/shaders/eyeball_shader.tres" id="1_1nn57"]
+[ext_resource type="PackedScene" uid="uid://vdkvcksf2y41" path="res://art/eyeball.glb" id="2_qsj83"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mfycs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_650hs"]
+render_priority = 0
+shader = ExtResource("1_1nn57")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/roughness = 1.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/eye_white = Color(1, 1, 1, 1)
+shader_parameter/pupil_color = Color(0, 0, 0, 1)
+shader_parameter/iris_radius = 0.5
+shader_parameter/iris_margin = 0.1
+shader_parameter/iris_pinch = 0.1
+shader_parameter/eye_cell_scale = 2.0
+shader_parameter/eye_cell_jitter = 0.1
+shader_parameter/rand_seed = null
+
+[sub_resource type="SphereMesh" id="SphereMesh_ccpjc"]
+
+[sub_resource type="Gradient" id="Gradient_rak2k"]
+colors = PackedColorArray(0.063, 0.17605, 0.42, 1, 0.4459, 0.701155, 0.91, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4px4v"]
+gradient = SubResource("Gradient_rak2k")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ahmjv"]
+render_priority = 0
+shader = ExtResource("1_1nn57")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/roughness = null
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/eye_white = Color(1, 1, 1, 1)
+shader_parameter/pupil_color = Color(0, 0, 0, 1)
+shader_parameter/iris_radius = 0.3
+shader_parameter/iris_margin = 0.02
+shader_parameter/iris_pinch = 0.67
+shader_parameter/eye_cell_scale = 17.5
+shader_parameter/eye_cell_jitter = 0.6
+shader_parameter/rand_seed = null
+shader_parameter/texture_iris_color = SubResource("GradientTexture1D_4px4v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gd7is"]
+transparency = 1
+depth_draw_mode = 1
+albedo_color = Color(1, 1, 1, 0.235294)
+roughness = 0.12
+refraction_scale = 0.01
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_mfycs")
+surface_material_override/0 = SubResource("ShaderMaterial_650hs")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53735, 0, 0)
+mesh = SubResource("SphereMesh_ccpjc")
+surface_material_override/0 = SubResource("ShaderMaterial_650hs")
+
+[node name="eyeball2" parent="." instance=ExtResource("2_qsj83")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55428, 0, 1.59075)
+
+[node name="eyeball" parent="eyeball2" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_ahmjv")
+
+[node name="cornea" parent="eyeball2" index="1"]
+visible = false
+surface_material_override/0 = SubResource("StandardMaterial3D_gd7is")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.781575, 0.623811, 0, -0.623811, 0.781575, 0, 4.0323, 7.59078)
+
+[editable path="eyeball2"]

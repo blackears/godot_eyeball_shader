@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dg00uvl2q6mxf"]
+[gd_scene load_steps=13 format=3 uid="uid://dg00uvl2q6mxf"]
 
 [ext_resource type="Shader" uid="uid://cmc1pgk78g758" path="res://addons/eyeball_shader/shaders/eyeball_shader.tres" id="1_1nn57"]
 [ext_resource type="Texture2D" uid="uid://ce5kipaaoeyfx" path="res://textures/eye_grad_blue.tres" id="2_7d70q"]
 [ext_resource type="PackedScene" uid="uid://vdkvcksf2y41" path="res://art/eyeball.glb" id="2_qsj83"]
 [ext_resource type="Texture2D" uid="uid://b8fbklubp6wue" path="res://textures/ring_dodge_grad.tres" id="4_n025f"]
 [ext_resource type="Texture2D" uid="uid://c61usu0cnxrr5" path="res://textures/ring_mult_grad.tres" id="5_fdgdx"]
+[ext_resource type="Shader" path="res://addons/eyeball_shader/shaders/cornea.gdshader" id="6_ueg0f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_mfycs"]
 
@@ -46,12 +47,12 @@ shader_parameter/texture_iris_color = ExtResource("2_7d70q")
 shader_parameter/texture_iris_ring_dodge = ExtResource("4_n025f")
 shader_parameter/texture_iris_ring_mult = ExtResource("5_fdgdx")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gd7is"]
-transparency = 1
-depth_draw_mode = 1
-albedo_color = Color(1, 1, 1, 0.235294)
-roughness = 0.12
-refraction_scale = 0.01
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8n7b8"]
+render_priority = 0
+shader = ExtResource("6_ueg0f")
+shader_parameter/shininess = 231.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tsgbc"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -71,10 +72,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55428, 0, 1.59075)
 surface_material_override/0 = SubResource("ShaderMaterial_ahmjv")
 
 [node name="cornea" parent="eyeball2" index="1"]
-visible = false
-surface_material_override/0 = SubResource("StandardMaterial3D_gd7is")
+surface_material_override/0 = SubResource("ShaderMaterial_8n7b8")
+
+[node name="eyeball_back" parent="eyeball2" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_tsgbc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.781575, 0.623811, 0, -0.623811, 0.781575, 0, 4.0323, 7.59078)
+transform = Transform3D(0.400658, 0.780287, -0.480235, -0.90759, 0.266193, -0.324688, -0.125515, 0.565945, 0.814832, -2.10846, 1.17211, 7.09038)
+light_energy = 0.7
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.234221, 0.962814, 0.134645, -0.924247, 0.177573, 0.337987, 0.301509, -0.203609, 0.93147, -1.9539, 2.52259, 7.09038)
+light_energy = 0.3
 
 [editable path="eyeball2"]

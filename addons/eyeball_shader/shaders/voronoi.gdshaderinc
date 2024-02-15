@@ -99,10 +99,7 @@ float voronoi_cell_2d(vec2 sample_pos, float jitter_scale, uint rand_seed_val) {
 	ivec2 cell_pos = ivec2(floor(sample_pos));
 	vec2 cell_offset = sample_pos - vec2(cell_pos);
 	
-	//return cell_offset.y;
-	
-//	float min_dist = FLOAT_MAX;
-	float min_dist = 1e10;
+	float min_dist = FLOAT_MAX;
 	
 	for (int j = -1; j <= 1; ++j) {
 		for (int i = -1; i <= 1; ++i) {

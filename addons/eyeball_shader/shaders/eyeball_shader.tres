@@ -28,12 +28,11 @@ code = "/**
 
 shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
-uniform vec4 albedo : source_color;
-uniform sampler2D texture_albedo : source_color,filter_linear_mipmap,repeat_enable;
 
-
-uniform vec3 uv1_scale = vec3(1, 1, 1);
-uniform vec3 uv1_offset;
+group_uniforms color_and_size;
+uniform float iris_radius:hint_range(0.0, 1.0, 0.01) = .25;
+uniform float iris_margin:hint_range(0.0, 1.0, 0.01) = .02;
+uniform float pupil_radius:hint_range(0.0, 1.0, 0.01) = .1;
 
 uniform vec3 eye_white:source_color = vec3(1, 1, 1);
 uniform vec3 pupil_color:source_color = vec3(0, 0, 0);
@@ -41,13 +40,20 @@ uniform sampler2D texture_iris_color : source_color, filter_linear_mipmap, repea
 uniform sampler2D texture_iris_ring_dodge : source_color, filter_linear_mipmap, repeat_disable, hint_default_white;
 uniform sampler2D texture_iris_ring_mult : source_color, filter_linear_mipmap, repeat_disable, hint_default_white;
 
-uniform float iris_radius:hint_range(0.0, 1.0, 0.01) = .25;
-uniform float pupil_radius:hint_range(0.0, 1.0, 0.01) = .1;
-uniform float iris_margin:hint_range(0.0, 1.0, 0.01) = .02;
-uniform float iris_pinch:hint_range(0.0, 1.0, 0.01) = .6;
+
+group_uniforms iris_cell_properties;
 uniform float eye_cell_scale:hint_range(1.0, 20.0, 0.1) = 17;
 uniform float eye_cell_jitter:hint_range(0.0, 1.0, 0.1) = .6;
+uniform float iris_pinch:hint_range(0.0, 1.0, 0.01) = .6;
+uniform uint iris_cells_num_octaves = 1;
+uniform float iris_cells_lacunarity = 2;
+uniform float iris_cells_weighted_strength = .5;
+
+group_uniforms other;
 uniform uint rand_seed;
+
+uniform vec3 uv1_scale = vec3(1, 1, 1);
+uniform vec3 uv1_offset;
 
 #include \"res://addons/eyeball_shader/shaders/voronoi.gdshaderinc\"
 #include \"res://addons/eyeball_shader/shaders/blend_modes.gdshaderinc\"
@@ -57,15 +63,14 @@ void vertex() {
 }
 
 void fragment() {
-	vec2 base_uv = UV;
-	vec4 albedo_tex = texture(texture_albedo, base_uv);
 	
 	vec2 uv_norm = UV * 2.0 - vec2(1, 1);
 	
 	float radial_offset = length(uv_norm);
 	
 	vec2 iris_uv = normalize(uv_norm) * pow(radial_offset, 1.0 - iris_pinch);
-	float eye_cell_lum = voronoi_cell_2d(iris_uv * eye_cell_scale, eye_cell_jitter, rand_seed);
+	float eye_cell_lum = voronoi_cell_2d(iris_uv * eye_cell_scale, eye_cell_jitter, rand_seed,
+		iris_cells_num_octaves, iris_cells_lacunarity, iris_cells_weighted_strength);
 	vec3 iris_col = texture(texture_iris_color, vec2(eye_cell_lum, 0)).xyz;
 
 	vec3 col = mix(pupil_color, eye_white, smoothstep(0, 1, (radial_offset - iris_radius) / iris_margin));

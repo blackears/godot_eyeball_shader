@@ -12,40 +12,44 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_650hs"]
 render_priority = 0
 shader = ExtResource("1_1nn57")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/iris_radius = 0.5
+shader_parameter/iris_margin = 0.1
+shader_parameter/pupil_radius = 0.3
 shader_parameter/eye_white = Color(1, 1, 1, 1)
 shader_parameter/pupil_color = Color(0, 0, 0, 1)
-shader_parameter/iris_radius = 0.5
-shader_parameter/pupil_radius = 0.3
-shader_parameter/iris_margin = 0.1
-shader_parameter/iris_pinch = 0.1
+shader_parameter/texture_iris_color = ExtResource("2_7d70q")
 shader_parameter/eye_cell_scale = 2.0
 shader_parameter/eye_cell_jitter = 0.1
+shader_parameter/iris_pinch = 0.1
+shader_parameter/iris_cells_num_octaves = 1
+shader_parameter/iris_cells_lacunarity = 2.0
+shader_parameter/iris_cells_weighted_strength = 0.5
 shader_parameter/rand_seed = null
-shader_parameter/texture_iris_color = ExtResource("2_7d70q")
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
 
 [sub_resource type="SphereMesh" id="SphereMesh_ccpjc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ahmjv"]
 render_priority = 0
 shader = ExtResource("1_1nn57")
-shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = null
+shader_parameter/iris_radius = 0.25
+shader_parameter/iris_margin = 0.01
+shader_parameter/pupil_radius = 0.11
 shader_parameter/eye_white = Color(1, 1, 1, 1)
 shader_parameter/pupil_color = Color(0, 0, 0, 1)
-shader_parameter/iris_radius = 0.25
-shader_parameter/pupil_radius = 0.11
-shader_parameter/iris_margin = 0.01
-shader_parameter/iris_pinch = 0.62
-shader_parameter/eye_cell_scale = 17.5
-shader_parameter/eye_cell_jitter = 0.6
-shader_parameter/rand_seed = null
 shader_parameter/texture_iris_color = ExtResource("2_7d70q")
 shader_parameter/texture_iris_ring_dodge = ExtResource("4_n025f")
 shader_parameter/texture_iris_ring_mult = ExtResource("5_fdgdx")
+shader_parameter/eye_cell_scale = 17.5
+shader_parameter/eye_cell_jitter = 0.6
+shader_parameter/iris_pinch = 0.62
+shader_parameter/iris_cells_num_octaves = 3
+shader_parameter/iris_cells_lacunarity = 2.0
+shader_parameter/iris_cells_weighted_strength = 0.415
+shader_parameter/rand_seed = null
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8n7b8"]
 render_priority = 0

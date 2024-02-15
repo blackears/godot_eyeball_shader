@@ -95,7 +95,7 @@ const uint RAND_OFFSETS_V2_SIZE = 256u;
 
 const float FLOAT_MAX = 1.0 / 0.0;
 
-float voronoi_cell_2d(vec2 sample_pos, float jitter_scale, uint rand_seed_val) {
+float voronoi_cell_2d_single(vec2 sample_pos, float jitter_scale, uint rand_seed_val) {
 	ivec2 cell_pos = ivec2(floor(sample_pos));
 	vec2 cell_offset = sample_pos - vec2(cell_pos);
 	
@@ -114,4 +114,17 @@ float voronoi_cell_2d(vec2 sample_pos, float jitter_scale, uint rand_seed_val) {
 	}
 	
 	return min_dist;
+}
+
+float voronoi_cell_2d(vec2 sample_pos, float jitter_scale, uint rand_seed_val, uint num_octaves, float lacunarity, float weighted_strength) {
+	float result = 0.0;
+	
+	float scalar = 1.0;
+	for (uint i = 0u; i < num_octaves; ++i) {
+		result += scalar * voronoi_cell_2d_single(sample_pos, jitter_scale, rand_seed_val);
+		scalar *= weighted_strength;
+		sample_pos *= lacunarity;
+	}
+	
+	return result;
 }

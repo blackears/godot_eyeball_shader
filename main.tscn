@@ -1,7 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dg00uvl2q6mxf"]
+[gd_scene load_steps=11 format=3 uid="uid://dg00uvl2q6mxf"]
 
 [ext_resource type="Shader" uid="uid://cmc1pgk78g758" path="res://addons/eyeball_shader/shaders/eyeball_shader.tres" id="1_1nn57"]
+[ext_resource type="Texture2D" uid="uid://ce5kipaaoeyfx" path="res://textures/eye_grad_blue.tres" id="2_7d70q"]
 [ext_resource type="PackedScene" uid="uid://vdkvcksf2y41" path="res://art/eyeball.glb" id="2_qsj83"]
+[ext_resource type="Texture2D" uid="uid://b8fbklubp6wue" path="res://textures/ring_dodge_grad.tres" id="4_n025f"]
+[ext_resource type="Texture2D" uid="uid://c61usu0cnxrr5" path="res://textures/ring_mult_grad.tres" id="5_fdgdx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_mfycs"]
 
@@ -9,42 +12,39 @@
 render_priority = 0
 shader = ExtResource("1_1nn57")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = 1.0
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/eye_white = Color(1, 1, 1, 1)
 shader_parameter/pupil_color = Color(0, 0, 0, 1)
 shader_parameter/iris_radius = 0.5
+shader_parameter/pupil_radius = 0.3
 shader_parameter/iris_margin = 0.1
 shader_parameter/iris_pinch = 0.1
 shader_parameter/eye_cell_scale = 2.0
 shader_parameter/eye_cell_jitter = 0.1
 shader_parameter/rand_seed = null
+shader_parameter/texture_iris_color = ExtResource("2_7d70q")
 
 [sub_resource type="SphereMesh" id="SphereMesh_ccpjc"]
-
-[sub_resource type="Gradient" id="Gradient_rak2k"]
-colors = PackedColorArray(0.063, 0.17605, 0.42, 1, 0.4459, 0.701155, 0.91, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_4px4v"]
-gradient = SubResource("Gradient_rak2k")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ahmjv"]
 render_priority = 0
 shader = ExtResource("1_1nn57")
 shader_parameter/albedo = Color(1, 1, 1, 1)
-shader_parameter/roughness = null
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = null
 shader_parameter/eye_white = Color(1, 1, 1, 1)
 shader_parameter/pupil_color = Color(0, 0, 0, 1)
-shader_parameter/iris_radius = 0.3
-shader_parameter/iris_margin = 0.02
-shader_parameter/iris_pinch = 0.67
+shader_parameter/iris_radius = 0.25
+shader_parameter/pupil_radius = 0.11
+shader_parameter/iris_margin = 0.01
+shader_parameter/iris_pinch = 0.62
 shader_parameter/eye_cell_scale = 17.5
 shader_parameter/eye_cell_jitter = 0.6
 shader_parameter/rand_seed = null
-shader_parameter/texture_iris_color = SubResource("GradientTexture1D_4px4v")
+shader_parameter/texture_iris_color = ExtResource("2_7d70q")
+shader_parameter/texture_iris_ring_dodge = ExtResource("4_n025f")
+shader_parameter/texture_iris_ring_mult = ExtResource("5_fdgdx")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gd7is"]
 transparency = 1

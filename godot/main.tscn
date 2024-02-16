@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://dg00uvl2q6mxf"]
 
-[ext_resource type="Shader" uid="uid://cmc1pgk78g758" path="res://addons/eyeball_shader/shaders/eyeball_shader.tres" id="1_1nn57"]
+[ext_resource type="Shader" path="res://addons/eyeball_shader/shaders/eyeball_shader.gdshader" id="1_1nn57"]
 [ext_resource type="PackedScene" uid="uid://vdkvcksf2y41" path="res://art/eyeball.glb" id="2_qsj83"]
 [ext_resource type="Texture2D" uid="uid://2prgs2gxcx1k" path="res://textures/eye_grad_brown.tres" id="3_t7r6g"]
 [ext_resource type="Texture2D" uid="uid://ce5kipaaoeyfx" path="res://textures/eye_grad_blue.tres" id="3_ypoyb"]

@@ -1,3 +1,9 @@
 # Godot 4+ specific ignores
 .godot/
 /art/*.blend1
+/export
+/build
+/docs/eyeball_window.jpg.kra
+/docs/*.jpg~
+/docs/eyeball_window.kra
+/docs/filesystem_overview.jpg.kra

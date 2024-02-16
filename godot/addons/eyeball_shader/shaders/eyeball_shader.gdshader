@@ -1,14 +1,11 @@
-[gd_resource type="Shader" format=3 uid="uid://cmc1pgk78g758"]
-
-[resource]
-code = "/**
+/**
 * MIT License
 *
 * Copyright (c) 2024 Mark McKay
 * https://github.com/blackears/eyeball_shader
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the \"Software\"), to deal
+* of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
@@ -17,7 +14,7 @@ code = "/**
 * The above copyright notice and this permission notice shall be included in all
 * copies or substantial portions of the Software.
 *
-* THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -55,8 +52,8 @@ uniform uint rand_seed;
 uniform vec3 uv1_scale = vec3(1, 1, 1);
 uniform vec3 uv1_offset;
 
-#include \"res://addons/eyeball_shader/shaders/voronoi.gdshaderinc\"
-#include \"res://addons/eyeball_shader/shaders/blend_modes.gdshaderinc\"
+#include "res://addons/eyeball_shader/shaders/voronoi.gdshaderinc"
+#include "res://addons/eyeball_shader/shaders/blend_modes.gdshaderinc"
 
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
@@ -88,4 +85,3 @@ void fragment() {
 	
 	ALBEDO = col;
 }
-"

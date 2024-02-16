@@ -37,7 +37,7 @@ uniform float pupil_radius:hint_range(0.0, 1.0, 0.01) = .1;
 uniform vec3 eye_white:source_color = vec3(1, 1, 1);
 uniform vec3 pupil_color:source_color = vec3(0, 0, 0);
 uniform sampler2D texture_iris_color : source_color, filter_linear_mipmap, repeat_disable;
-uniform sampler2D texture_iris_ring_dodge : source_color, filter_linear_mipmap, repeat_disable, hint_default_white;
+uniform sampler2D texture_iris_ring_dodge : source_color, filter_linear_mipmap, repeat_disable, hint_default_black;
 uniform sampler2D texture_iris_ring_mult : source_color, filter_linear_mipmap, repeat_disable, hint_default_white;
 
 

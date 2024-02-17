@@ -4,6 +4,9 @@
 
 This project contains shaders for rendering eyeballs.  The `eyeball_shader.tres` can be used to draw the eyeball itself and the `cornea.gdshader` can be used to create a glassy effect for the cornea of the eye.
 
+[![Demo video](https://img.youtube.com/vi/3SPNPm_abi4/0.jpg)](https://www.youtube.com/watch?v=3SPNPm_abi4)
+
+
 ## Installation
 
 Download the zip file from the releases and add everything in the `addons/eyeball` shader to your project.  Make sure to keep the same project structure as is in the zip file.
